@@ -1,0 +1,105 @@
+ <!-- partial:partials/_footer.html -->
+ {% load static %}
+ <footer>
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5">
+            <a class="navbar-brand" href="#"><h1>ZARAFSHON 24</h1></a>
+            <ul class="social-media mb-3 mt-4">
+              <li>
+                <a href="https://t.me/Zarafshon24UZ">
+                  <i class="fa-brands fa-telegram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/zarafshon24uz">
+                  <i class="fa-brands fa-facebook-f"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://youtube.com/c/Zarafshon24UZ">
+                  <i class="fa-brands fa-youtube"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://instagram.com/zarafshon24uz">
+                  <i class="fa-brands fa-instagram"></i>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.tiktok.com/zarafshon24uz">
+                  <i class="fa-brands fa-tiktok"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-sm-4">
+            <h3 class="font-weight-bold mb-3">SO'NGI YANGILIKLAR</h3>
+            {% for post in posts|slice:":3" %}
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="footer-border-bottom pb-2">
+                  <div class="row">
+                    <div class="col-3">
+                      <img
+                        src="{{post.file.url}}"
+                        alt="thumb"
+                        class="img-fluid"
+                      />
+                    </div>
+                    <div class="col-9">
+                      <h5 class="font-weight-600">
+                        {{post.title}}
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="col-sm-3">
+            <h3 class="font-weight-bold mb-3">QISMLAR</h3>
+            <div class="footer-border-bottom pb-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 font-weight-600">ASOSIY</h5>
+                
+              </div>
+            </div>
+            <div class="footer-border-bottom pb-2 pt-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 font-weight-600">YANGILIKLAR</h5>
+                
+              </div>
+            </div>
+            <div class="footer-border-bottom pb-2 pt-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 font-weight-600">BIZ HAQIMIZDA</h5>
+              </div>
+            </div>
+            <div class="footer-border-bottom pb-2 pt-2">
+              <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0 font-weight-600">BOG'LANISH</h5>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="d-sm-flex justify-content-between align-items-center">
+              <div class="fs-14 font-weight-600">
+                © 2022 @ <a href="https://t.me/Luqmonov1990" target="_blank" class="text-white"> Luqmonov Hakimjon</a>. Barcha huquqlar himoyalangan. 
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- partial -->

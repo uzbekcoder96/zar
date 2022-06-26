@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+{% block content %}
+    
+    <div class="content-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card" data-aos="fade-up">
+              <div class="card-body">
+                <div class="aboutus-wrapper">
+                  <h1 class="mt-5 text-center mb-5">
+                    Biz bilan bog'lanish
+                  </h1>
+                  <div class="row">
+                    <div class="col-lg-12 mb-5 mb-sm-2">
+                      <form method="POST">
+                        
+                        <div class="row">
+                          
+                            {% csrf_token %}
+                            {{form}}
+                          
+                        </div>
+
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="form-group">
+                              <button
+                                type="submit"
+                                class="btn btn-lg btn-dark font-weight-bold mt-3"
+                                >Xabar yuborish</button
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- container-scroller ends -->
+    <!-- partial:../partials/_footer.html -->
+    {% endblock content %}
+   

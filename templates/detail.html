@@ -1,0 +1,78 @@
+{% extends 'pages/news.html' %}
+
+{% block content %}
+        <div class="content-wrapper">
+          <div class="container">
+            <div class="col-sm-12">
+              <div class="card" data-aos="fade-up">
+                <div class="card-body">
+                  <div class="row">
+                    
+                    <div class='col-lg-8' >
+                      
+                      <div>
+                        <a href="" class="font-weight-600 mb-1 text-decoration-none text-dark">
+                          {{post.title}}
+                        </a>
+                        <p class="fs-13 text-muted mb-0">
+                          <span class="mr-2">{{post.type}} </span>{{post.created|timesince}} ago
+                        </p>
+                        <div class="rotate-img">
+                          <img
+                            src="{{post.file.url}}"
+                            alt="banner"
+                            class="img-fluid mt-4 mb-4"
+                          />
+                        </div>
+                        <p class="mb-4 fs-15">
+                          {{post.descriptions}}
+                        </p>
+                      </div>
+                      
+                    </div>
+                    
+                    <div class="col-lg-4 top-0">
+                      <h2 class="mb-4 text-primary font-weight-600">
+                        Latest news
+                      </h2>
+                      {% for new in posts|slice:"3" %}
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <div class="border-bottom pb-4 pt-4">
+                              <div class="row">
+                                <div class="col-sm-8" >
+                                  <a href="{% url 'zarafshon:detail' new.slug %}" class="font-weight-600 mb-1 text-dark text-decoration-none h5">
+                                    {{new.title}}
+                                  </a>
+                                  <p class="fs-13 text-muted mb-0">
+                                    <span class="mr-2">{{new.type}} </span>{{new.created|timesince}} ago
+                                  </p>
+                                </div>
+                                <div class="col-sm-4">
+                                  <div class="rotate-img">
+                                    <img
+                                      src="{{new.file.url}}"
+                                      alt="banner"
+                                      class="img-fluid"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        <!-- main-panel ends -->
+        <!-- container-scroller ends -->
+
+        
+{% endblock content %}  

@@ -1,0 +1,76 @@
+{% extends 'index.html' %}
+
+
+
+{% block filterlash %}
+<div class="row" data-aos="fade-up">
+  <div class="col-lg-3 stretch-card grid-margin">
+    <div class="card">
+      <div class="card-body">
+        <h2>Filtrlash</h2>
+        <ul class="vertical-menu">
+          <form method="GET" class=" w-100 mx-auto" id="filterForm">
+            {% for tag in tags %}
+                
+                    <li><a href="{% url 'zarafshon:tag' tag.name %}"> {{tag.name}}</a></li>
+                
+            {% endfor %}
+          </form>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-9 stretch-card grid-margin">
+    <div class="card">
+        {% for post in filter_posts %}
+      <div class="card-body">
+        <div class="row">
+            
+          <div class="col-sm-4 grid-margin">
+            
+            <div class="position-relative">
+              <div class="rotate-img">
+                <img
+                  src=" {{post.file.url}} "
+                  alt="thumb"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="badge-positioned">
+                <span class="badge badge-danger font-weight-bold"
+                  >{{tag.name}}</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-8  grid-margin">
+            <a href="{% url 'zarafshon:detail' post.slug %}" class="mb-2 font-weight-600 h2 text-dark text-decoration-none">
+              {{post.title}}
+            </a>
+            <div class="fs-13 mb-2 mt-2">
+              <span class="mr-2">{{post.type}} </span>{{post.created|timesince}} ago
+            </div>
+            <p class="mb-0">
+              {{post.descriptions|truncatechars:100}}
+            </p>
+          </div>
+        </div>
+
+        
+      </div>
+      {% endfor %}
+    </div>
+    
+  </div>
+</div>
+{% endblock filterlash%}
+
+
+
+
+
+
+
+
+
+

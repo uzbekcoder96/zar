@@ -1,0 +1,279 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="zxx">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{% block title %}Nimadur 24{% endblock title %}</title>
+
+    <!--===============================================================================================-->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/animate/animate.css' %}">
+    <!--===============================================================================================-->	
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/css-hamburgers/hamburgers.min.css' %}">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/select2/select2.min.css' %}">
+    <!--===============================================================================================-->
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/css/util.css' %}">
+      <link rel="stylesheet" type="text/css" href="{% static 'assets/css/main.css' %}">
+    <!--===============================================================================================-->
+
+
+
+    <!-- plugin css for this page -->
+    <link rel="stylesheet" href="{% static 'assets/vendors/aos/dist/aos.css/aos.css' %}" />
+
+    <!-- End plugin css for this page -->
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+
+    <!-- inject:css -->
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <!-- endinject -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  </head>
+
+  <body>
+    <div class="container-scroller">
+      <div class="main-panel">
+      {% include 'header.html' %}
+       
+      {% block content %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="alert alert-{{message.tags}} mt-4" role="alert">
+              {{message}}
+          </div>
+        {% endfor %} 
+      {% endif %}
+        <div class="content-wrapper">
+          <div class="container">
+            {% block last %}
+            <div class="row" data-aos="fade-up">
+              <div class="col-xl-8 stretch-card grid-margin">
+                <div class="position-relative">
+                  
+                  <img
+                    src="{{last_post.file.url}}"
+                    alt="banner"
+                    class="img-fluid"
+                  />
+                  
+                  <div class="banner-content">
+                    <a href="{% url 'zarafshon:detail' last_post.slug %}" class="mb-0 h1 text-white text-decoration-none">{{last_post.title|truncatechars:25 }}</a>
+                    <h1 class="mb-2">
+                      {{last_post.description}}
+                    </h1>
+                    <div class="fs-12">
+                      <span class="mr-2">{{last_post.type}} </span>{{last_post.created|timesince}} ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-4 stretch-card grid-margin">
+                <div class="card bg-dark text-white">
+                  <div class="card-body">
+                    <h2>Latest news</h2>
+                    {% for post in posts|slice:"3" %}
+                    <div class="d-flex border-bottom-blue pt-3 pb-4 align-items-center justify-content-between">
+                      <div class="pr-3">
+                        <a href="{% url 'zarafshon:detail' post.slug %}" class="h5 text-white text-decoration-none">{{post.title|truncatechars:20}}</a>
+                        <div class="fs-12">
+                          <span class="mr-2">{{post.type}} </span>{{post.created|timesince}} ago
+                        </div>
+                      </div>
+                      <div class="rotate-img">
+                        {% if post.file %}
+                        <img
+                          src="{{post.file.url}}"
+                          alt="thumb"
+                          class="img-fluid img-lg"
+                        />
+                        {% endif %}
+                      </div>
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endblock last %}
+            {% block filterlash %}
+            <div class="row" data-aos="fade-up">
+              <div class="col-lg-3 stretch-card grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <h2>Filtrlash</h2>
+                    <ul class="vertical-menu">
+                      <form method="GET" class=" w-100 mx-auto" id="filterForm">
+                        
+                        {% for tag in tags %}
+                          <li><a href="{% url 'zarafshon:tag' tag.name %}"> {{tag.name}}</a></li>
+                        {% endfor %}
+                       
+                      </form>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-9 stretch-card grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    {% for post in posts|slice:"3" %}
+                      <div class="row">
+                        <div class="col-sm-4 grid-margin">
+                          <div class="position-relative">
+                            <div class="rotate-img">
+                              <img
+                                src="{{post.file.url}}"
+                                alt="thumb"
+                                class="img-fluid"
+                              />
+                            </div>
+                            <div class="badge-positioned">
+                              <span class="badge badge-danger font-weight-bold"
+                                >So'ngi yangilik</span
+                              >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-sm-8  grid-margin">
+                          <a href="{% url 'zarafshon:detail' post.slug %}" class="mb-3 font-weight-600 h2 text-dark text-decoration-none">
+                            {{post.title}}
+                          </a>
+                          <div class="fs-13 mb-2 mt-2">
+                            <span class="mr-2">{{post.type}}</span>{{post.created|timesince}} ago
+                          </div>
+                          <p class="mb-0 ">
+                            {{post.description}}
+                          </p>
+                        </div>
+                      </div>
+                    {% endfor %}
+                        
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endblock filterlash%}
+            {% block video %}
+            <div class="row" data-aos="fade-up">
+              <div class="col-sm-12 grid-margin">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        <div class="card-title">
+                          Video
+                        </div>
+                        <div class="row">
+                          {% for video in video_tags %} 
+                          <div class="col-sm-6 grid-margin">
+                            <div class="position-relative">
+                              <div class="rotate-img">
+                                <a href="{% url 'zarafshon:detail' video.slug %}"><img
+                                    src="{{video.file.url}}"
+                                    alt="thumb"
+                                    class="img-fluid"
+                                  />
+                                </a>
+                              </div>
+                              <div class="badge-positioned w-90">
+                                <div
+                                  class="d-flex justify-content-between align-items-center"
+                                >
+                                
+                                  <div class="video-icon">
+                                    <i class="fa-solid fa-play"></i>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {% endfor %}
+                        </div>
+                        
+                      </div>
+                      <div class="col-lg-4">
+                        <div
+                          class="d-flex justify-content-between align-items-center"
+                        >
+                          <div class="card-title">
+                            Latest Video
+                          </div>
+                          <p class="mb-3">See all</p>
+                        </div>
+                        {% for video in video_tags|slice:":4" %}
+                        <div
+                          class="d-flex justify-content-between align-items-center border-bottom pb-2"
+                        >
+                          <div class="div-w-80 mr-3">
+                            <div class="rotate-img">
+                              <img
+                                src=" {{video.file.url}} "
+                                alt="thumb"
+                                class="img-fluid"
+                              />
+                            </div>
+                          </div>
+                          <a href="{% url 'zarafshon:detail' video.slug %}" class="font-weight-600 mb-0 h3 text-dark text-decoration-none">
+                            {{video.title|truncatechars:25}}
+                          </a>
+                        </div>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endblock video %}
+        <!-- main-panel ends -->
+        <!-- container-scroller ends -->
+      {% endblock content %}
+      {% include 'footer.html' %}
+      
+      </div>
+    </div>
+    
+    {% block scripts %}
+    <!-- inject:js -->
+    <script src="{% static 'assets/vendors/js/vendor.bundle.base.js' %}"></script>
+    <!-- endinject -->
+    <!-- plugin js for this page -->
+    <script src="{% static 'assets/vendors/aos/dist/aos.js/aos.js' %}"></script>
+    <!-- End plugin js for this page -->
+    <!-- Custom js for this page-->
+    <script src="{% static './assets/js/demo.js' %}"></script>
+    <script src="{% static './assets/js/jquery.easeScroll.js' %}"></script>
+
+
+    <!--===============================================================================================-->	
+	<script src="{% static './assets/vendor/jquery/jquery-3.2.1.min.js' %}"></script>
+  <!--===============================================================================================-->
+    <script src="{% static './assets/vendor/bootstrap/js/popper.js' %}"></script>
+    <script src="{% static './assets/vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+  <!--===============================================================================================-->
+    <script src="{% static './assets/vendor/select2/select2.min.js' %}"></script>
+  <!--===============================================================================================-->
+    <script src="{% static './assets/vendor/tilt/tilt.jquery.min.js' %}"></script>
+    <script >
+      $('.js-tilt').tilt({
+        scale: 1.1
+      })
+    </script>
+  <!--===============================================================================================-->
+    <script src="{% static './assets/js/main.js' %}"></script>
+    <!-- End custom js for this page-->
+    {% endblock scripts %}
+  </body>
+  
+</html>
